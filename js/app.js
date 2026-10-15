@@ -9,6 +9,7 @@ function renderCategories() {
     'nha-thuoc': 'from-red-400 to-pink-500',
     'cua-hang': 'from-green-400 to-emerald-500',
     'hoc-tap': 'from-purple-400 to-indigo-500',
+    'nha-tro': 'from-rose-400 to-orange-400',
     'khac': 'from-yellow-400 to-amber-500'
   };
   grid.innerHTML = CATEGORIES.map(cat => {
@@ -39,6 +40,7 @@ function renderFeatured() {
       'nha-thuoc': 'bg-red-100 text-red-700',
       'cua-hang': 'bg-green-100 text-green-700',
       'hoc-tap': 'bg-purple-100 text-purple-700',
+      'nha-tro': 'bg-rose-100 text-rose-700',
       'khac': 'bg-yellow-100 text-yellow-700'
     }[place.category] || 'bg-gray-100 text-gray-700';
     return `
@@ -67,7 +69,7 @@ function renderFeatured() {
   }).join('');
 }
 
-// ============ BẢN ĐỒ (CHỈ CÓ NỀN, KHÔNG MARKER) ============
+// ============ BẢN ĐỒ ============
 function initMap() {
   const mapEl = document.getElementById('map');
   if (!mapEl) return;
@@ -110,14 +112,27 @@ function initMap() {
   };
   homeControl.addTo(map);
 
-  // ===============================================
-  // KHIÊM SẼ VIẾT CODE MARKER Ở ĐÂY
-  // ===============================================
-  // Bước 1: Khai báo các marker cho tòa nhà
-  // Bước 2: Khai báo marker cho UTT
-  // Bước 3: Khai báo marker cho 12 địa điểm từ PLACES
-  // Bước 4: Thêm marker vào bản đồ
-  // ===============================================
+  const markers = L.markerClusterGroup();
+
+  L.marker(UTT_LOCATION)
+    .addTo(map)
+    .bindPopup('<strong>Trường Đại học Công nghệ Giao thông vận tải</strong><br>54 Triều Khúc, Thanh Xuân, Hà Nội');
+
+  PLACES.forEach(place => {
+    const category = CATEGORIES.find(item => item.id === place.category);
+    const popup = `
+      <strong>${place.name}</strong><br>
+      ${category ? `${category.icon} ${category.name}<br>` : ''}
+      ${place.address}<br>
+      <a href="detail.html?id=${place.id}">Xem chi tiết</a>
+    `;
+
+    L.marker([place.lat, place.lng])
+      .bindPopup(popup)
+      .addTo(markers);
+  });
+
+  markers.addTo(map);
 }
 
 // ============ SEARCH ============
@@ -130,6 +145,11 @@ function handleSearch() {
 
 // ============ KHỞI TẠO ============
 document.addEventListener('DOMContentLoaded', () => {
+  const statPlaces = document.getElementById('statPlaces');
+  const statCategories = document.getElementById('statCategories');
+  if (statPlaces) statPlaces.textContent = PLACES.length;
+  if (statCategories) statCategories.textContent = CATEGORIES.length;
+
   renderCategories();
   renderFeatured();
   initMap();
@@ -140,6 +160,16 @@ document.addEventListener('DOMContentLoaded', () => {
   if (searchInput) {
     searchInput.addEventListener('keypress', e => { if (e.key === 'Enter') handleSearch(); });
   }
+
+  const menuBtn = document.getElementById('menuBtn');
+  const mainNav = document.getElementById('mainNav');
+  if (menuBtn && mainNav) {
+    menuBtn.addEventListener('click', () => {
+      const isOpen = !mainNav.classList.toggle('hidden');
+      menuBtn.setAttribute('aria-expanded', String(isOpen));
+    });
+  }
+
   document.querySelectorAll('.quick-search').forEach(btn => {
     btn.addEventListener('click', () => {
       window.location.href = `category.html?q=${encodeURIComponent(btn.dataset.keyword)}`;

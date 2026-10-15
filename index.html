@@ -20,14 +20,14 @@
     .fade-in { animation: fadeIn 0.5s ease-in; }
     @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     #map { height: 450px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-    .search-input:focus { box-shadow: 0 0 0 4px rgba(59,130,246,0.2); }
+    .search20.9823, 105.803ut:focus { box-shadow: 0 0 0 4px rgba(59,130,246,0.2); }
   </style>
 </head>
 <body class="bg-gray-50">
 
   <!-- HEADER -->
   <header class="gradient-header text-white sticky top-0 z-50 shadow-lg">
-    <div class="container mx-auto px-4 py-4 flex items-center justify-between">
+    <div class="container mx-auto px-4 py-4 flex items-center justify-between relative">
       <a href="index.html" class="flex items-center gap-3">
         <div class="bg-white/20 backdrop-blur rounded-lg p-2">
           <i class="fas fa-map-marked-alt text-2xl"></i>
@@ -37,13 +37,13 @@
           <p class="text-xs text-blue-100">Cẩm nang số sinh viên UTT</p>
         </div>
       </a>
-      <nav class="hidden md:flex gap-6 text-sm font-medium">
+      <nav id="mainNav" class="hidden md:flex absolute md:static top-full left-0 right-0 bg-blue-700 md:bg-transparent p-4 md:p-0 gap-4 md:gap-6 text-sm font-medium flex-col md:flex-row">
         <a href="index.html" class="hover:text-yellow-300 transition"><i class="fas fa-home mr-1"></i>Trang chủ</a>
         <a href="#categories" class="hover:text-yellow-300 transition"><i class="fas fa-th-large mr-1"></i>Danh mục</a>
         <a href="#map-section" class="hover:text-yellow-300 transition"><i class="fas fa-map mr-1"></i>Bản đồ</a>
         <a href="https://github.com/NgKhoa2308/utt-student-guide" target="_blank" class="hover:text-yellow-300 transition"><i class="fab fa-github mr-1"></i>GitHub</a>
       </nav>
-      <button id="menuBtn" class="md:hidden text-2xl"><i class="fas fa-bars"></i></button>
+      <button id="menuBtn" class="md:hidden text-2xl" aria-label="Mở menu" aria-expanded="false"><i class="fas fa-bars"></i></button>
     </div>
   </header>
 
@@ -58,7 +58,7 @@
         Tìm nhanh địa điểm quanh UTT
       </h1>
       <p class="text-blue-100 mb-8 text-lg fade-in">
-        Ăn uống, photocopy, sửa xe, nhà thuốc, học nhóm... tất cả trong một
+        Ăn uống, tìm trọ, photocopy, sửa xe, nhà thuốc, học nhóm... tất cả trong một
       </p>
 
       <div class="max-w-2xl mx-auto fade-in">
@@ -93,6 +93,9 @@
           <button class="quick-search bg-white/20 hover:bg-white/30 backdrop-blur px-4 py-1 rounded-full transition" data-keyword="học nhóm">
             <i class="fas fa-book mr-1"></i>học nhóm
           </button>
+          <button class="quick-search bg-white/20 hover:bg-white/30 backdrop-blur px-4 py-1 rounded-full transition" data-keyword="phòng trọ">
+            <i class="fas fa-house mr-1"></i>tìm trọ
+          </button>
         </div>
       </div>
     </div>
@@ -122,7 +125,7 @@
       <h2 class="text-2xl md:text-3xl font-bold text-gray-800 mb-2">Khám phá theo danh mục</h2>
       <p class="text-gray-500">Chọn danh mục để xem các địa điểm phù hợp</p>
     </div>
-    <div id="categoriesGrid" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4">
+    <div id="categoriesGrid" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-4">
       <!-- Render bằng JS -->
     </div>
   </section>

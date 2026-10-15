@@ -1,7 +1,7 @@
 // ============ STATE ============
 let state = {
   category: null,   // 'an-uong' hoặc null
-  priceFilter: null, // 'duoi-30', '30-50', 'tren-50' hoặc null
+  priceFilter: null,
   keyword: ''       // từ khóa tìm kiếm
 };
 
@@ -43,15 +43,21 @@ function getFilteredPlaces() {
     // Lọc theo giá
     if (state.priceFilter) {
       const priceNum = extractPrice(place.price);
-      if (state.priceFilter === 'duoi-30' && priceNum > 30000) return false;
-      if (state.priceFilter === '30-50' && (priceNum < 30000 || priceNum > 50000)) return false;
-      if (state.priceFilter === 'tren-50' && priceNum < 50000) return false;
+      if (state.category === 'nha-tro') {
+        if (state.priceFilter === 'duoi-2-trieu' && priceNum > 2000000) return false;
+        if (state.priceFilter === '2-3-trieu' && (priceNum < 2000000 || priceNum > 3000000)) return false;
+        if (state.priceFilter === 'tren-3-trieu' && priceNum < 3000000) return false;
+      } else {
+        if (state.priceFilter === 'duoi-30' && priceNum > 30000) return false;
+        if (state.priceFilter === '30-50' && (priceNum < 30000 || priceNum > 50000)) return false;
+        if (state.priceFilter === 'tren-50' && priceNum < 50000) return false;
+      }
     }
 
     // Lọc theo từ khóa
     if (state.keyword) {
       const kw = state.keyword.toLowerCase();
-      const searchText = `${place.name} ${place.description} ${place.address}`.toLowerCase();
+      const searchText = `${place.name} ${place.description} ${place.address} ${place.roomType || ''} ${place.amenities || ''}`.toLowerCase();
       if (!searchText.includes(kw)) return false;
     }
 
@@ -86,8 +92,10 @@ function renderCategoryFilter() {
   el.querySelectorAll('.filter-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       state.category = btn.dataset.cat || null;
+      state.priceFilter = null;
       updateTitle();
       renderCategoryFilter();
+      renderPriceFilter();
       renderPlaces();
     });
   });
@@ -98,12 +106,19 @@ function renderPriceFilter() {
   const el = document.getElementById('priceFilter');
   if (!el) return;
 
-  const options = [
-    { id: null, label: 'Tất cả mức giá', icon: '💰' },
-    { id: 'duoi-30', label: 'Dưới 30.000đ', icon: '💵' },
-    { id: '30-50', label: '30.000 - 50.000đ', icon: '💴' },
-    { id: 'tren-50', label: 'Trên 50.000đ', icon: '💸' }
-  ];
+  const options = state.category === 'nha-tro'
+    ? [
+        { id: null, label: 'Tất cả mức thuê', icon: '💰' },
+        { id: 'duoi-2-trieu', label: 'Dưới 2 triệu/tháng', icon: '💵' },
+        { id: '2-3-trieu', label: '2 - 3 triệu/tháng', icon: '💴' },
+        { id: 'tren-3-trieu', label: 'Trên 3 triệu/tháng', icon: '💸' }
+      ]
+    : [
+        { id: null, label: 'Tất cả mức giá', icon: '💰' },
+        { id: 'duoi-30', label: 'Dưới 30.000đ', icon: '💵' },
+        { id: '30-50', label: '30.000 - 50.000đ', icon: '💴' },
+        { id: 'tren-50', label: 'Trên 50.000đ', icon: '💸' }
+      ];
 
   el.innerHTML = options.map(opt => `
     <label class="flex items-center gap-2 cursor-pointer text-sm p-2 rounded hover:bg-gray-50">
@@ -145,6 +160,7 @@ function renderPlaces() {
     'nha-thuoc': 'bg-red-100 text-red-700',
     'cua-hang': 'bg-green-100 text-green-700',
     'hoc-tap': 'bg-purple-100 text-purple-700',
+    'nha-tro': 'bg-rose-100 text-rose-700',
     'khac': 'bg-yellow-100 text-yellow-700'
   };
 
@@ -168,6 +184,7 @@ function renderPlaces() {
           </span>
           <h3 class="font-bold text-gray-800 mb-1 line-clamp-1">${place.name}</h3>
           <p class="text-sm text-gray-500 mb-2 line-clamp-2">${place.description}</p>
+          ${place.roomType ? `<div class="text-xs text-gray-500 mb-2"><i class="fas fa-house mr-1 text-rose-500"></i>${place.roomType} · ${place.area}</div>` : ''}
           <div class="flex items-center text-xs text-gray-400 mb-2">
             <i class="fas fa-map-marker-alt mr-1 text-red-400"></i>
             <span class="line-clamp-1">${place.address}</span>

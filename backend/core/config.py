@@ -37,6 +37,7 @@ def get_config():
     config_type = {
         "test": TestConfig(),
         "local": LocalConfig(),
+        "dev": LocalConfig(),
         "prod": ProductionConfig(),
     }
     return config_type[env]

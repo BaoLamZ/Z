@@ -69,6 +69,19 @@ function renderDetail() {
         </div>
       </div>
 
+      ${place.roomType ? `
+        <div class="p-6 border-b border-gray-100">
+          <h2 class="text-lg font-bold text-gray-800 mb-3">Thông tin phòng</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
+            <p><span class="text-gray-500">Loại phòng:</span> <strong>${place.roomType}</strong></p>
+            <p><span class="text-gray-500">Diện tích:</span> <strong>${place.area}</strong></p>
+            <p><span class="text-gray-500">Tiện ích:</span> <strong>${place.amenities}</strong></p>
+            <p><span class="text-gray-500">Tiền cọc:</span> <strong>${place.deposit}</strong></p>
+            <p><span class="text-gray-500">Liên hệ:</span> <strong>${place.contact}</strong></p>
+          </div>
+        </div>
+      ` : ''}
+
       <!-- Mô tả -->
       <div class="p-6 border-b border-gray-100">
         <h2 class="text-lg font-bold text-gray-800 mb-2">Mô tả</h2>

@@ -8,6 +8,7 @@ const CATEGORIES = [
   { id: 'nha-thuoc', name: 'Nhà thuốc', icon: '💊' },
   { id: 'cua-hang', name: 'Cửa hàng', icon: '🛒' },
   { id: 'hoc-tap', name: 'Học tập', icon: '📚' },
+  { id: 'nha-tro', name: 'Tìm trọ', icon: '🏠' },
   { id: 'khac', name: 'Khác', icon: '🏪' }
 ];
 
@@ -154,6 +155,74 @@ const PLACES = [
     lat: 20.9808,
     lng: 105.8018,
     description: 'Siêu thị mini, có đầy đủ đồ ăn, nước uống, bánh kẹo. Giá cả hợp lý.',
+    featured: false
+  },
+  {
+    id: 13,
+    name: 'Phòng trọ sinh viên Triều Khúc',
+    category: 'nha-tro',
+    address: 'Ngõ 54 Triều Khúc, Thanh Xuân Nam, Hà Nội',
+    price: '2.500.000đ/tháng',
+    hours: 'Liên hệ xem phòng',
+    lat: 20.9812,
+    lng: 105.8020,
+    description: 'Phòng khép kín 22m², có điều hòa, nóng lạnh và chỗ để xe. Cách UTT khoảng 5 phút đi bộ.',
+    roomType: 'Phòng khép kín',
+    area: '22m²',
+    amenities: 'Điều hòa, nóng lạnh, chỗ để xe, wifi',
+    deposit: '1 tháng tiền phòng',
+    contact: '0912 345 678',
+    featured: true
+  },
+  {
+    id: 14,
+    name: 'Nhà trọ gần cổng UTT',
+    category: 'nha-tro',
+    address: 'Ngõ 165 Triều Khúc, Thanh Xuân Nam, Hà Nội',
+    price: '3.200.000đ/tháng',
+    hours: 'Liên hệ xem phòng',
+    lat: 20.9823,
+    lng: 105.8030,
+    description: 'Phòng studio 28m², giờ giấc tự do, có ban công và khu bếp riêng. Phù hợp ở một đến hai người.',
+    roomType: 'Phòng studio',
+    area: '28m²',
+    amenities: 'Ban công, bếp riêng, điều hòa, máy giặt chung',
+    deposit: '1 tháng tiền phòng',
+    contact: '0987 654 321',
+    featured: true
+  },
+  {
+    id: 15,
+    name: 'Phòng trọ giá rẻ Nguyễn Trãi',
+    category: 'nha-tro',
+    address: 'Số 240 Nguyễn Trãi, Thanh Xuân, Hà Nội',
+    price: '1.800.000đ/tháng',
+    hours: 'Liên hệ xem phòng',
+    lat: 20.9792,
+    lng: 105.7998,
+    description: 'Phòng 18m², an ninh tốt, gần chợ và bến xe buýt. Có thể ở ghép để tiết kiệm chi phí.',
+    roomType: 'Phòng đơn',
+    area: '18m²',
+    amenities: 'Chỗ để xe, wifi, camera an ninh',
+    deposit: '500.000đ',
+    contact: '0901 234 567',
+    featured: false
+  },
+  {
+    id: 16,
+    name: 'Căn hộ mini Thanh Xuân',
+    category: 'nha-tro',
+    address: 'Ngõ 132 Triều Khúc, Thanh Xuân Nam, Hà Nội',
+    price: '4.500.000đ/tháng',
+    hours: 'Liên hệ xem phòng',
+    lat: 20.9818,
+    lng: 105.8026,
+    description: 'Căn hộ mini đầy đủ nội thất, diện tích rộng, phù hợp sinh viên muốn ở lâu dài.',
+    roomType: 'Căn hộ mini',
+    area: '35m²',
+    amenities: 'Nội thất đầy đủ, thang máy, máy giặt riêng',
+    deposit: '1 tháng tiền phòng',
+    contact: '0933 456 789',
     featured: false
   }
 ];
