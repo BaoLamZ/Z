@@ -53,6 +53,12 @@ function renderDetail() {
         <p class="text-gray-500">📍 ${place.address}</p>
       </div>
 
+      ${place.image ? `
+        <div class="border-b border-gray-100">
+          <img src="${place.image}" alt="Ảnh ${place.name}" class="w-full h-64 md:h-96 object-cover">
+        </div>
+      ` : ''}
+
       <!-- Thông tin nhanh -->
       <div class="grid grid-cols-2 md:grid-cols-3 gap-4 p-6 bg-gray-50 border-b border-gray-100">
         <div>

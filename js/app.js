@@ -45,8 +45,8 @@ function renderFeatured() {
     }[place.category] || 'bg-gray-100 text-gray-700';
     return `
       <a href="detail.html?id=${place.id}" class="place-card bg-white rounded-2xl shadow-md overflow-hidden block cursor-pointer">
-        <div class="h-32 bg-gradient-to-br from-blue-500 to-purple-600 relative flex items-center justify-center">
-          <i class="fas fa-store text-5xl text-white/30"></i>
+        <div class="h-32 bg-gradient-to-br from-blue-500 to-purple-600 relative flex items-center justify-center overflow-hidden">
+          ${place.image ? `<img src="${place.image}" alt="Ảnh ${place.name}" class="w-full h-full object-cover">` : '<i class="fas fa-store text-5xl text-white/30"></i>'}
           ${place.featured ? `<div class="absolute top-3 right-3 bg-yellow-400 text-yellow-900 text-xs font-bold px-2 py-1 rounded-full"><i class="fas fa-star mr-1"></i>Nổi bật</div>` : ''}
         </div>
         <div class="p-5">
